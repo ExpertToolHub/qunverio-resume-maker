@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qunverio Pro Resume Maker | 50+ Professional Templates</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;600;700&family=Roboto+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- html2pdf.js & QRCode.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="qvr-app">
+        <!-- HEADER NAVBAR -->
+        <header class="qvr-header">
+            <div class="qvr-brand">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span class="qvr-brand-name">QUNVERIO</span>
+                <span class="qvr-badge">PRO RESUME STUDIO</span>
+            </div>
+            
+            <div class="qvr-header-controls">
+                <button id="btn-gallery-toggle" class="qvr-btn qvr-btn-secondary">
+                    <i class="fa-solid fa-layer-group"></i> Templates <span class="qvr-pill">52</span>
+                </button>
+                <button id="btn-reset" class="qvr-btn qvr-btn-subtle" title="Reset Resume">
+                    <i class="fa-solid fa-rotate-left"></i> Reset
+                </button>
+                <button id="btn-json-export" class="qvr-btn qvr-btn-subtle" title="Export JSON Data">
+                    <i class="fa-solid fa-download"></i> Save Data
+                </button>
+                <label for="json-import-input" class="qvr-btn qvr-btn-subtle" style="cursor:pointer;" title="Import JSON Data">
+                    <i class="fa-solid fa-upload"></i> Load Data
+                </label>
+                <input type="file" id="json-import-input" accept=".json" style="display:none;">
+                
+                <div class="qvr-export-group">
+                    <button id="btn-print" class="qvr-btn qvr-btn-outline"><i class="fa-solid fa-print"></i> Print</button>
+                    <button id="btn-download-png" class="qvr-btn qvr-btn-outline"><i class="fa-solid fa-file-image"></i> PNG</button>
+                    <button id="btn-download-pdf" class="qvr-btn qvr-btn-primary"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- TEMPLATE GALLERY MODAL / DRAWER -->
+        <div id="template-modal" class="qvr-modal">
+            <div class="qvr-modal-content">
+                <div class="qvr-modal-header">
+                    <h2><i class="fa-solid fa-swatchbook"></i> Choose From 52 Professional Resume Templates</h2>
+                    <button id="btn-close-gallery" class="qvr-close-btn">&times;</button>
+                </div>
+                
+                <div class="qvr-gallery-filters">
+                    <button class="filter-btn active" data-cat="all">All (52)</button>
+                    <button class="filter-btn" data-cat="ats">ATS-Friendly (10)</button>
+                    <button class="filter-btn" data-cat="modern">Modern (10)</button>
+                    <button class="filter-btn" data-cat="executive">Executive (7)</button>
+                    <button class="filter-btn" data-cat="fresher">Fresher & Student (7)</button>
+                    <button class="filter-btn" data-cat="tech">Technical & IT (6)</button>
+                    <button class="filter-btn" data-cat="creative">Creative (5)</button>
+                    <button class="filter-btn" data-cat="specialized">International & Specialized (7)</button>
+                </div>
+                
+                <div id="template-grid" class="qvr-template-grid">
+                    <!-- 52 Template Cards populated dynamically via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN EDITOR & PREVIEW WORKSPACE -->
+        <div class="qvr-workspace">
+            <!-- SIDEBAR SECTION TABS -->
+            <nav class="qvr-sidebar">
+                <ul class="qvr-nav-list">
+                    <li class="active" data-sec="personal"><i class="fa-solid fa-id-card"></i> Personal Info</li>
+                    <li data-sec="summary"><i class="fa-solid fa-paragraph"></i> Summary / Objective</li>
+                    <li data-sec="experience"><i class="fa-solid fa-briefcase"></i> Experience</li>
+                    <li data-sec="education"><i class="fa-solid fa-graduation-cap"></i> Education</li>
+                    <li data-sec="skills"><i class="fa-solid fa-gears"></i> Skills & Tools</li>
+                    <li data-sec="projects"><i class="fa-solid fa-code-branch"></i> Projects</li>
+                    <li data-sec="certifications"><i class="fa-solid fa-award"></i> Certifications</li>
+                    <li data-sec="custom"><i class="fa-solid fa-folder-plus"></i> Additional Sections</li>
+                    <li data-sec="media"><i class="fa-solid fa-camera-retro"></i> Photo & Signature</li>
+                    <li data-sec="design"><i class="fa-solid fa-palette"></i> Styling & Layout</li>
+                </ul>
+            </nav>
+
+            <!-- FORM EDITOR AREA -->
+            <main class="qvr-editor">
+                <!-- PERSONAL INFO -->
+                <section id="sec-personal" class="qvr-section active">
+                    <div class="section-title"><h3>Personal Information</h3><span class="sub">Your primary contact information</span></div>
+                    <div class="qvr-form-grid">
+                        <div class="field"><label>Full Name</label><input type="text" id="inp-name" placeholder="John Doe"></div>
+                        <div class="field"><label>Job Title / Headline</label><input type="text" id="inp-headline" placeholder="Senior Full-Stack Engineer"></div>
+                        <div class="field"><label>Email Address</label><input type="email" id="inp-email" placeholder="john.doe@example.com"></div>
+                        <div class="field"><label>Phone Number</label><input type="text" id="inp-phone" placeholder="+1 (555) 019-2834"></div>
+                        <div class="field"><label>City</label><input type="text" id="inp-city" placeholder="San Francisco"></div>
+                        <div class="field"><label>State / Country</label><input type="text" id="inp-country" placeholder="CA, USA"></div>
+                        <div class="field"><label>LinkedIn Profile URL</label><input type="text" id="inp-linkedin" placeholder="linkedin.com/in/johndoe"></div>
+                        <div class="field"><label>GitHub Profile URL</label><input type="text" id="inp-github" placeholder="github.com/johndoe"></div>
+                        <div class="field"><label>Portfolio / Personal Website</label><input type="text" id="inp-website" placeholder="johndoe.dev"></div>
+                    </div>
+                </section>
+
+                <!-- SUMMARY -->
+                <section id="sec-summary" class="qvr-section">
+                    <div class="section-title"><h3>Professional Summary / Objective</h3><span class="sub">Craft a compelling intro</span></div>
+                    <div class="field">
+                        <textarea id="inp-summary" rows="6" placeholder="Results-driven Senior Software Engineer with 6+ years of experience designing scalable microservices and front-end architectures..."></textarea>
+                    </div>
+                    <div class="preset-box">
+                        <strong><i class="fa-solid fa-lightbulb"></i> Quick Helper Presets:</strong>
+                        <button class="preset-btn" data-type="tech">Software Engineer</button>
+                        <button class="preset-btn" data-type="fresher">Fresher Graduate</button>
+                        <button class="preset-btn" data-type="manager">Project Manager</button>
+                    </div>
+                </section>
+
+                <!-- EXPERIENCE -->
+                <section id="sec-experience" class="qvr-section">
+                    <div class="section-title"><h3>Work Experience</h3><button id="add-exp-btn" class="qvr-btn qvr-btn-sm"><i class="fa-solid fa-plus"></i> Add Position</button></div>
+                    <div id="experience-list"></div>
+                </section>
+
+                <!-- EDUCATION -->
+                <section id="sec-education" class="qvr-section">
+                    <div class="section-title"><h3>Education</h3><button id="add-edu-btn" class="qvr-btn qvr-btn-sm"><i class="fa-solid fa-plus"></i> Add Degree</button></div>
+                    <div id="education-list"></div>
+                </section>
+
+                <!-- SKILLS -->
+                <section id="sec-skills" class="qvr-section">
+                    <div class="section-title"><h3>Skills & Expertise</h3></div>
+                    <div class="field">
+                        <label>Skills (Comma-separated or line-separated)</label>
+                        <textarea id="inp-skills" rows="5" placeholder="JavaScript, TypeScript, React.js, Node.js, Python, PostgreSQL, Docker, AWS, System Design, REST APIs"></textarea>
+                    </div>
+                </section>
+
+                <!-- PROJECTS -->
+                <section id="sec-projects" class="qvr-section">
+                    <div class="section-title"><h3>Key Projects</h3><button id="add-proj-btn" class="qvr-btn qvr-btn-sm"><i class="fa-solid fa-plus"></i> Add Project</button></div>
+                    <div id="projects-list"></div>
+                </section>
+
+                <!-- CERTIFICATIONS -->
+                <section id="sec-certifications" class="qvr-section">
+                    <div class="section-title"><h3>Certifications & Licenses</h3></div>
+                    <div class="field">
+                        <textarea id="inp-certs" rows="4" placeholder="AWS Certified Solutions Architect - Associate&#10;Google Cloud Professional Data Engineer&#10;Certified ScrumMaster (CSM)"></textarea>
+                    </div>
+                </section>
+
+                <!-- CUSTOM / ADDITIONAL SECTIONS -->
+                <section id="sec-custom" class="qvr-section">
+                    <div class="section-title"><h3>Languages, Achievements & Custom Sections</h3></div>
+                    <div class="qvr-form-grid">
+                        <div class="field"><label>Languages</label><input type="text" id="inp-languages" placeholder="English (Native), Spanish (Fluent), German (Basic)"></div>
+                        <div class="field"><label>Achievements / Awards</label><textarea id="inp-achievements" rows="3" placeholder="Hackathon 1st Place Winner 2024&#10;Employee of the Quarter Q2 2025"></textarea></div>
+                    </div>
+                    <div class="field" style="margin-top:15px;">
+                        <label>Custom Section Title</label>
+                        <input type="text" id="inp-custom-title" placeholder="Publications & Research / Volunteer Work">
+                        <label style="margin-top:8px;">Custom Section Content</label>
+                        <textarea id="inp-custom-content" rows="4" placeholder="Enter details here..."></textarea>
+                    </div>
+                </section>
+
+                <!-- MEDIA & VISUALS (Photo, Signature, QR Codes) -->
+                <section id="sec-media" class="qvr-section">
+                    <div class="section-title"><h3>Media, Signature & Links</h3></div>
+                    
+                    <div class="media-card">
+                        <h4><i class="fa-solid fa-user-gear"></i> Profile Photo</h4>
+                        <div class="qvr-form-grid">
+                            <div class="field"><label><input type="checkbox" id="chk-show-photo"> Enable Photo on Resume</label></div>
+                            <div class="field"><label>Photo Shape</label>
+                                <select id="sel-photo-shape">
+                                    <option value="circle">Circle</option>
+                                    <option value="square">Square</option>
+                                    <option value="rounded">Rounded Rectangle</option>
+                                </select>
+                            </div>
+                            <div class="field"><label>Upload Photo</label><input type="file" id="inp-photo-file" accept="image/*"></div>
+                        </div>
+                    </div>
+
+                    <div class="media-card" style="margin-top:15px;">
+                        <h4><i class="fa-solid fa-signature"></i> Signature Upload</h4>
+                        <div class="qvr-form-grid">
+                            <div class="field"><label><input type="checkbox" id="chk-show-sig"> Include Digital Signature at Bottom</label></div>
+                            <div class="field"><label>Date / Place Line</label><input type="text" id="inp-sig-place" placeholder="San Francisco, CA | October 2026"></div>
+                            <div class="field"><label>Upload Signature Image (PNG recommended)</label><input type="file" id="inp-sig-file" accept="image/*"></div>
+                        </div>
+                    </div>
+
+                    <div class="media-card" style="margin-top:15px;">
+                        <h4><i class="fa-solid fa-qrcode"></i> Portfolio / LinkedIn QR Code</h4>
+                        <div class="field"><label><input type="checkbox" id="chk-show-qr"> Generate QR Code for Website / Profile</label></div>
+                    </div>
+                </section>
+
+                <!-- STYLING & DESIGN -->
+                <section id="sec-design" class="qvr-section">
+                    <div class="section-title"><h3>Design Customization</h3></div>
+                    <div class="qvr-form-grid">
+                        <div class="field"><label>Primary Accent Color</label><input type="color" id="inp-accent-color" value="#2563eb"></div>
+                        <div class="field"><label>Page Paper Size</label>
+                            <select id="sel-page-size">
+                                <option value="a4">A4 (210 x 297 mm)</option>
+                                <option value="letter">US Letter (8.5 x 11 in)</option>
+                            </select>
+                        </div>
+                        <div class="field"><label>Font Family</label>
+                            <select id="sel-font-family">
+                                <option value="Inter, sans-serif">Inter (Modern & Clean)</option>
+                                <option value="Plus Jakarta Sans, sans-serif">Plus Jakarta Sans (Corporate)</option>
+                                <option value="Merriweather, serif">Merriweather (Classic Serif)</option>
+                                <option value="Playfair Display, serif">Playfair Display (Executive)</option>
+                                <option value="Roboto Mono, monospace">Roboto Mono (Developer)</option>
+                            </select>
+                        </div>
+                        <div class="field"><label>Line Spacing</label>
+                            <select id="sel-line-height">
+                                <option value="1.3">Compact (1.3)</option>
+                                <option value="1.5" selected>Standard (1.5)</option>
+                                <option value="1.7">Relaxed (1.7)</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- LIVE RESUME PREVIEW AREA -->
+            <aside class="qvr-preview-pane">
+                <div class="qvr-preview-toolbar">
+                    <span class="preview-status"><i class="fa-solid fa-eye"></i> Live Preview</span>
+                    <span id="current-template-tag" class="template-tag">Template: Classic Professional</span>
+                    <div class="zoom-controls">
+                        <button id="btn-zoom-out" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                        <span id="zoom-level">100%</span>
+                        <button id="btn-zoom-in" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <div class="qvr-paper-wrapper">
+                    <div id="resume-paper" class="qvr-paper t-1 size-a4">
+                        <!-- Dynamic Resume Render Target -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Hidden element for QR code generation -->
+    <div id="qrcode-hidden" style="display:none;"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
